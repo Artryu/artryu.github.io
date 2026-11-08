@@ -7,7 +7,8 @@
     ["people.html", "People"],
     ["publications.html", "Publications"],
     ["news.html", "News"],
-    ["contact.html", "Contact"]
+    ["contact.html", "Contact"],
+    ["play.html", "Play"]
   ];
   const here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
 
