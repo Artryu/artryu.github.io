@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research | WAVE Lab</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Research</span>
+        <h1>Research Areas</h1>
+        <p>From raindrops to river basins — observing and forecasting water with data, AI, and satellites.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="research-block">
+          <div>
+            <div class="research-num">01 · WATER ANALYTICS</div>
+            <h2>Hydrologic Modeling &amp; Extremes</h2>
+            <p class="lead">수문 모델링 · 설계강우 · 극한 홍수/가뭄</p>
+          </div>
+          <div>
+            <p>We build and calibrate hydrological models for flood design and risk assessment, with special attention to basins where observations are scarce, and we analyze how climate change is reshaping hydrologic extremes.</p>
+            <ul>
+              <li>Hydrological modeling and parameter estimation in ungauged basins</li>
+              <li>Design rainfall, peak discharge, and probable maximum flood (Clark unit hydrograph, storage effect)</li>
+              <li>Climate change and extreme events — floods, droughts, compound dry–wet transitions</li>
+              <li>Stochastic and statistical analysis; time–frequency analysis with wavelet transform</li>
+              <li>Spatiotemporal variability of hydrometeorological and environmental variables</li>
+            </ul>
+            <div class="tags"><span class="tag">PMF</span><span class="tag">Unit Hydrograph</span><span class="tag">Wavelet</span><span class="tag">Frequency Analysis</span><span class="tag">Climate Extremes</span></div>
+          </div>
+        </div>
+
+        <div class="research-block">
+          <div>
+            <div class="research-num">02 · AI FORECASTING</div>
+            <h2>Machine Learning for Water</h2>
+            <p class="lead">인공지능 기반 수문기상 예측</p>
+          </div>
+          <div>
+            <p>We develop hybrid machine learning frameworks that pair signal decomposition and feature selection with deep learning to forecast key water variables more accurately.</p>
+            <ul>
+              <li>Reference evapotranspiration and rainfall forecasting for sustainable agriculture</li>
+              <li>Drought forecasting with wavelet-based preprocessing (TQWT, MODWT)</li>
+              <li>Wastewater treatment plant inflow forecasting</li>
+              <li>Streamflow and climate projections under CMIP6 scenarios</li>
+            </ul>
+            <div class="tags"><span class="tag">Hybrid ML</span><span class="tag">Signal Decomposition</span><span class="tag">Feature Selection</span><span class="tag">Deep Learning</span></div>
+          </div>
+        </div>
+
+        <div class="research-block">
+          <div>
+            <div class="research-num">03 · VISION &amp; SENSING</div>
+            <h2>Seeing and Hearing the Rain</h2>
+            <p class="lead">영상·음향 기반 강우 관측</p>
+          </div>
+          <div>
+            <p>We turn everyday sensors into rain gauges. Surveillance cameras, infrared imaging, and raindrop sounds recorded by low-cost IoT devices can provide dense, real-time rainfall information where conventional gauges are sparse.</p>
+            <ul>
+              <li>Rainfall intensity and raindrop size distribution from CCTV and infrared cameras, including night-time conditions</li>
+              <li>Rain-streak extraction and rainfall image databases built in a climatic environment chamber</li>
+              <li>Acoustic rainfall estimation with CNNs on spectrograms; vibration-sensor rainfall information</li>
+              <li>Citizen-science rainfall observation with low-cost IoT sensors</li>
+            </ul>
+            <div class="tags"><span class="tag">Computer Vision</span><span class="tag">Optical Physics</span><span class="tag">Acoustics</span><span class="tag">IoT</span><span class="tag">4 Patents</span></div>
+          </div>
+        </div>
+
+        <div class="research-block">
+          <div>
+            <div class="research-num">04 · EARTH OBSERVATION</div>
+            <h2>Satellites for Floods &amp; Disasters</h2>
+            <p class="lead">위성 원격탐사 기반 재난 탐지</p>
+          </div>
+          <div>
+            <p>We use satellite data — especially Synthetic Aperture Radar, which sees through clouds and at night — to map floods and monitor disaster risk, and satellite reanalysis products to characterize rainfall across the Korean Peninsula.</p>
+            <ul>
+              <li>Flood detection and mapping using PolSAR decompositions and deep learning (C-band, ALOS-2)</li>
+              <li>Satellite image analysis for disaster detection and infrastructure risk monitoring</li>
+              <li>Grid-based precipitation quantiles from satellite/reanalysis data (ERA5-Land)</li>
+              <li>Satellite land surface temperature and snow-disaster susceptibility mapping</li>
+            </ul>
+            <div class="tags"><span class="tag">SAR / PolSAR</span><span class="tag">U-Net</span><span class="tag">ERA5</span><span class="tag">GK-2A</span><span class="tag">Disaster Mapping</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container grid grid-2" style="gap:48px">
+        <div>
+          <h2>Ongoing Projects</h2>
+          <div data-render="projects" data-mode="ongoing"></div>
+        </div>
+        <div>
+          <h2>Previous Projects</h2>
+          <div data-render="projects" data-mode="past"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
