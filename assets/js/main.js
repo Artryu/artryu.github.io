@@ -70,7 +70,7 @@
         <div class="pub-num">${num != null ? "[" + num + "]" : ""}</div>
         <div>
           <div class="pub-title">${p.title}</div>
-          <div class="pub-authors">${boldPI(p.authors)} (${p.year})</div>
+          <div class="pub-authors">${p.authors ? boldPI(p.authors) + " " : ""}(${p.year})</div>
           <div class="pub-venue">${p.venue}</div>
           ${links.length ? `<div class="pub-links">${links.join("")}</div>` : ""}
         </div>

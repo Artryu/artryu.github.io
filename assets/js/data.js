@@ -30,9 +30,10 @@ window.MEMBERS = [
 
 /* ---------------- 뉴스 ---------------- */
 window.NEWS = [
+  { date: "2026", cat: "Patent", text: "Korean patent registered (No. 10-2989545): <i>System and method for distinguishing rainfall and snowfall using CCTV images</i>." },
   { date: "2026.06", cat: "Project", text: "New projects launched: UNESCO IHP ecohydrology demonstration-site guidelines, and core satellite image analysis technologies for disaster detection (Ministry of Education)." },
   { date: "2026.05", cat: "Award", text: "Best Paper Award at the 2026 Korea Water Resources Association Conference — <i>Flood detection using polarimetric decomposition and machine learning with ALOS-2 PolSAR</i>." },
-  { date: "2026.04", cat: "Talk", text: "Presented PolSAR-based flood detection for infrastructure risk monitoring at the Korea Institute for Structural Maintenance and Inspection conference (Busan)." },
+  { date: "2026.04", cat: "Presentation", text: "Presented PolSAR-based flood detection for infrastructure risk monitoring at the Korea Institute for Structural Maintenance and Inspection conference (Busan)." },
   { date: "2026.03", cat: "Lab", text: "WAVE Lab opens at the Department of Civil and Environmental Engineering, Hannam University. Prof. Jinwook Lee joins as Assistant Professor." },
   { date: "2026", cat: "Paper", text: "Paper published in <i>Geoscience Frontiers</i>: Enhancing flood mapping precision through C-band PolSAR decompositions and feature-optimized deep learning." },
   { date: "2026", cat: "Paper", text: "Paper published in <i>Journal of Hydrology: Regional Studies</i>: Hybrid machine learning framework for hourly wastewater inflow forecasting in Oahu, Hawaii." },
@@ -139,6 +140,7 @@ window.PUBS = [
   { type: "conf", year: 2014, authors: "Jun, C., Zhu, J. H., Lee, J., Cho, E., & Yoo, C.", title: "Comparison of storage effect in South and North Han River basin in Korea with concept of storage coefficient", venue: "AOGS 11th Annual Meeting, Sapporo, Japan" },
 
   // ===== Patents (Registered) =====
+  { type: "patent", year: 2026, authors: "Jun, C., Kim, H., Lee, J., & Byun, J.", title: "System and method for distinguishing rainfall and snowfall using CCTV images (CCTV 영상을 이용한 강우/강설 구별 시스템 및 방법)", venue: "Korean Patent No. 10-2989545" },
   { type: "patent", year: 2025, authors: "Jun, C., Byun, J., Lee, J., & Kim, H.", title: "System and method for generating a rain-streak dataset based on real-environment rainfall images", venue: "Korean Patent No. 10-2856324" },
   { type: "patent", year: 2025, authors: "Jun, C., Cha, H., Lee, J., Baik, J., & Byun, J.", title: "System and method for constructing rainfall scenarios considering the temporal distribution characteristics of actual heavy rainfall events", venue: "Korean Patent No. 10-2856315" },
   { type: "patent", year: 2025, authors: "Jun, C., Baik, J., Lee, J., Byun, J., Hwang, S., & Sung, J.", title: "Method for providing rainfall information using a moving unit equipped with a vibration sensor", venue: "Korean Patent No. 10-2750951" },
