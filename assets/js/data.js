@@ -33,7 +33,7 @@ window.NEWS = [
   { date: "2026", cat: "Patent", text: "Korean patent registered (No. 10-2989545): <i>System and method for distinguishing rainfall and snowfall using CCTV images</i>." },
   { date: "2026.06", cat: "Project", text: "New projects launched: UNESCO IHP ecohydrology demonstration-site guidelines, and core satellite image analysis technologies for disaster detection (Ministry of Education)." },
   { date: "2026.05", cat: "Award", text: "Best Paper Award at the 2026 Korea Water Resources Association Conference — <i>Flood detection using polarimetric decomposition and machine learning with ALOS-2 PolSAR</i>." },
-  { date: "2026.04", cat: "Presentation", text: "Presented PolSAR-based flood detection for infrastructure risk monitoring at the Korea Institute for Structural Maintenance and Inspection conference (Busan)." },
+  { date: "2026.04", cat: "Conference", text: "Presented PolSAR-based flood detection for infrastructure risk monitoring at the Korea Institute for Structural Maintenance and Inspection conference (Busan)." },
   { date: "2026.03", cat: "Lab", text: "WAVE Lab opens at the Department of Civil and Environmental Engineering, Hannam University. Prof. Jinwook Lee joins as Assistant Professor." },
   { date: "2026", cat: "Paper", text: "Paper published in <i>Geoscience Frontiers</i>: Enhancing flood mapping precision through C-band PolSAR decompositions and feature-optimized deep learning." },
   { date: "2026", cat: "Paper", text: "Paper published in <i>Journal of Hydrology: Regional Studies</i>: Hybrid machine learning framework for hourly wastewater inflow forecasting in Oahu, Hawaii." },
