@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <radialGradient id="g" cx="0.4" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#bff1fa"/>
+      <stop offset="0.55" stop-color="#2aa6ba"/>
+      <stop offset="1" stop-color="#0b4677"/>
+    </radialGradient>
+  </defs>
+  <!-- drop whose tip (the click point) is at the top-left corner -->
+  <path d="M3 3 L20.8 8.6 A9.4 9.4 0 1 1 8.6 20.8 Z" fill="#0b2540" transform="translate(1.2 1.2)" opacity=".25"/>
+  <path d="M3 3 L20.8 8.6 A9.4 9.4 0 1 1 8.6 20.8 Z" fill="url(#g)" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+  <ellipse cx="14.5" cy="13.5" rx="3" ry="1.8" fill="#fff" opacity=".75" transform="rotate(-45 14.5 13.5)"/>
+</svg>

@@ -24,7 +24,8 @@
     .board-shell { position: relative; border-radius: 16px; padding: 10px;
       background: linear-gradient(180deg, #eaf6f8 0%, #dcebf3 100%); border: 1px solid var(--line);
       user-select: none; -webkit-user-select: none; }
-    .board { position: relative; display: grid; gap: 2px; touch-action: none; cursor: crosshair; --fs: 18px; }
+    .board { position: relative; display: grid; gap: 2px; touch-action: none; --fs: 18px;
+      cursor: url("assets/img/cursor-drop.svg") 3 3, crosshair; }
     .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; min-height: 0; }
 
     /* Default: deep colored drops, white numbers with dark outline */
