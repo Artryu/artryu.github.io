@@ -148,10 +148,17 @@
     const TIME = 120; // same as the classic 2-minute round
 
     /* ---------- Leaderboard storage ----------
-       Shared ranking: fill in a Supabase project URL + anon (public) key.
-       Left empty, the ranking is saved only in this browser. */
-    const LEADERBOARD = { url: "", key: "", table: "rain10_scores" };
+       Shared ranking on Supabase. The publishable key is meant to be public;
+       the table only allows reading and adding scores (see README). */
+    const LEADERBOARD = {
+      url: "https://tswbamaqvdrfdzdhduzw.supabase.co",
+      key: "sb_publishable_EbQnnaA75q0XcK2DDLEw_g_TV9b45Sy",
+      table: "rain10_scores"
+    };
     const shared = !!(LEADERBOARD.url && LEADERBOARD.key);
+    // New-style publishable keys go in the apikey header only; legacy anon JWTs also go in Authorization.
+    const authHeaders = () => Object.assign({ apikey: LEADERBOARD.key },
+      LEADERBOARD.key.startsWith("eyJ") ? { Authorization: "Bearer " + LEADERBOARD.key } : {});
 
     const store = {
       get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -161,7 +168,7 @@
     async function fetchTop() {
       if (shared) {
         const q = `${LEADERBOARD.url}/rest/v1/${LEADERBOARD.table}?select=nickname,score,created_at&order=score.desc,created_at.asc&limit=10`;
-        const r = await fetch(q, { headers: { apikey: LEADERBOARD.key, Authorization: "Bearer " + LEADERBOARD.key } });
+        const r = await fetch(q, { headers: authHeaders() });
         if (!r.ok) throw new Error("load failed");
         return r.json();
       }
@@ -173,11 +180,12 @@
       if (shared) {
         const r = await fetch(`${LEADERBOARD.url}/rest/v1/${LEADERBOARD.table}`, {
           method: "POST",
-          headers: { apikey: LEADERBOARD.key, Authorization: "Bearer " + LEADERBOARD.key, "Content-Type": "application/json", Prefer: "return=minimal" },
+          headers: Object.assign(authHeaders(), { "Content-Type": "application/json", Prefer: "return=representation" }),
           body: JSON.stringify({ nickname, score })
         });
         if (!r.ok) throw new Error("save failed");
-        return entry;
+        const rows = await r.json().catch(() => []);
+        return rows[0] || entry; // server row has the exact created_at used for highlighting
       }
       const list = store.get("rain10-top", []);
       list.push(entry);
