@@ -50,6 +50,7 @@
         <div>
           <a href="mailto:${L.email}">${L.email}</a><br>
           Tel. ${L.phone}<br>
+          <a href="${L.scholar}" target="_blank" rel="noopener">Google Scholar</a> · <a href="${L.linkedin}" target="_blank" rel="noopener">LinkedIn</a><br>
           © ${new Date().getFullYear()} ${L.name}
         </div>
       </div>`;

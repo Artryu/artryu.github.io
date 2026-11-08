@@ -15,7 +15,9 @@ window.LAB = {
   phone: "+82-42-629-7355",
   address: "70 Hannam-ro, Daedeok-gu, Daejeon 34430, Republic of Korea",
   addressKo: "대전광역시 대덕구 한남로 70 한남대학교 (34430)",
-  office: "공과대학 10층 6호 (Room 6, 10th Floor, College of Engineering)"
+  scholar: "https://scholar.google.co.kr/citations?user=mrKgYBsAAAAJ&hl=en",
+  linkedin: "https://www.linkedin.com/in/jinwook213",
+  office:"공과대학 10층 6호 (Room 6, 10th Floor, College of Engineering)"
 };
 
 /* ---------------- 구성원 ----------------
