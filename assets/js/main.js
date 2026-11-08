@@ -20,9 +20,9 @@
       <div class="container nav">
         <a class="brand" href="index.html">
           <img src="assets/img/logo.svg" alt="">
-          <span class="brand-text"><strong>${L.name}</strong><span>${L.nameKo} · ${L.univ}</span></span>
+          <span class="brand-text"><strong>${L.name}</strong><span>${L.univ}</span></span>
         </a>
-        <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
         <ul class="nav-links">
@@ -45,7 +45,7 @@
       <div class="container footer-inner">
         <div>
           <strong>${L.fullName}</strong><br>
-          ${L.nameKo} · ${L.deptKo}<br>
+          ${L.dept}, ${L.univ}<br>
           ${L.address}
         </div>
         <div>
@@ -122,14 +122,13 @@
     members(el) {
       const list = window.MEMBERS;
       if (!list.length) {
-        el.innerHTML = `<p class="empty">구성원 소개가 곧 업데이트됩니다. Member profiles coming soon.</p>`;
+        el.innerHTML = `<p class="empty">Member profiles coming soon.</p>`;
         return;
       }
       el.innerHTML = `<div class="grid grid-4">${list.map((m) => `
         <div class="card member-card">
           ${m.photo ? `<img class="avatar sm" src="${m.photo}" alt="${m.name}">` : `<div class="avatar sm">${initials(m.nameEn || m.name)}</div>`}
-          <h4>${m.name}</h4>
-          ${m.nameEn ? `<p>${m.nameEn}</p>` : ""}
+          <h4>${m.nameEn || m.name}</h4>
           <p style="color:var(--teal);font-weight:600">${m.role}${m.since ? " · " + m.since + "~" : ""}</p>
           ${m.interests ? `<p>${m.interests}</p>` : ""}
           ${m.email ? `<p><a href="mailto:${m.email}">${m.email}</a></p>` : ""}

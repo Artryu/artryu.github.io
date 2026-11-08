@@ -17,7 +17,7 @@ window.LAB = {
   addressKo: "대전광역시 대덕구 한남로 70 한남대학교 (34430)",
   scholar: "https://scholar.google.co.kr/citations?user=mrKgYBsAAAAJ&hl=en",
   linkedin: "https://www.linkedin.com/in/jinwook213",
-  office:"공과대학 10층 6호 (Room 6, 10th Floor, College of Engineering)"
+  office: "Room 6, 10th Floor, College of Engineering Building"
 };
 
 /* ---------------- 구성원 ----------------
@@ -140,7 +140,7 @@ window.PUBS = [
   { type: "conf", year: 2014, authors: "Jun, C., Zhu, J. H., Lee, J., Cho, E., & Yoo, C.", title: "Comparison of storage effect in South and North Han River basin in Korea with concept of storage coefficient", venue: "AOGS 11th Annual Meeting, Sapporo, Japan" },
 
   // ===== Patents (Registered) =====
-  { type: "patent", year: 2026, authors: "Jun, C., Kim, H., Lee, J., & Byun, J.", title: "System and method for distinguishing rainfall and snowfall using CCTV images (CCTV 영상을 이용한 강우/강설 구별 시스템 및 방법)", venue: "Korean Patent No. 10-2989545" },
+  { type: "patent", year: 2026, authors: "Jun, C., Kim, H., Lee, J., & Byun, J.", title: "System and method for distinguishing rainfall and snowfall using CCTV images", venue: "Korean Patent No. 10-2989545" },
   { type: "patent", year: 2025, authors: "Jun, C., Byun, J., Lee, J., & Kim, H.", title: "System and method for generating a rain-streak dataset based on real-environment rainfall images", venue: "Korean Patent No. 10-2856324" },
   { type: "patent", year: 2025, authors: "Jun, C., Cha, H., Lee, J., Baik, J., & Byun, J.", title: "System and method for constructing rainfall scenarios considering the temporal distribution characteristics of actual heavy rainfall events", venue: "Korean Patent No. 10-2856315" },
   { type: "patent", year: 2025, authors: "Jun, C., Baik, J., Lee, J., Byun, J., Hwang, S., & Sung, J.", title: "Method for providing rainfall information using a moving unit equipped with a vibration sensor", venue: "Korean Patent No. 10-2750951" },
