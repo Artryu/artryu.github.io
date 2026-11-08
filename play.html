@@ -26,7 +26,7 @@
       background: linear-gradient(180deg, #eaf6f8 0%, #dcebf3 100%); border: 1px solid var(--line);
       user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
     .board { position: relative; display: grid; gap: 2px; touch-action: none; --fs: 18px;
-      cursor: url("assets/img/cursor-umbrella.svg") 16 1, crosshair; }
+      cursor: url("assets/img/cursor-arrow.svg") 2 2, default; }
     .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; min-height: 0; }
 
     /* Default: deep colored drops, white numbers with dark outline */
@@ -82,6 +82,17 @@
     /* While playing, stop pull-to-refresh / overscroll bounce on phones */
     body.playing { overscroll-behavior: none; }
 
+    /* ---------- Full-screen game mode (phones) ---------- */
+    .fs-only { display: none !important; }
+    .game-area.fs { position: fixed; inset: 0; z-index: 100; background: var(--bg-soft); overflow: hidden;
+      display: flex; flex-direction: column;
+      padding: calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom)); }
+    .game-area.fs .fs-only { display: inline-flex !important; }
+    .game-area.fs .board-shell { width: 100%; margin-top: auto; margin-bottom: auto; }
+    html.fs-lock, html.fs-lock body { overflow: hidden; overscroll-behavior: none; }
+    #exit-fs { margin-left: 0; width: 38px; height: 38px; padding: 0; justify-content: center; align-items: center; border-radius: 50%; font-size: 1.1rem; }
+    #ov-close { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.55); margin-left: 8px; }
+
     /* ---------- Phones ---------- */
     @media (max-width: 600px) {
       .page-hero { padding: 22px 0 18px; }
@@ -124,6 +135,7 @@
             <div class="score">💧 <span id="score">0</span></div>
             <div class="meta">⏱ <span id="time">120</span>s</div>
             <button class="btn btn-outline" id="restart">Restart</button>
+            <button class="btn btn-outline fs-only" id="exit-fs" aria-label="Close game">✕</button>
           </div>
           <div class="options" id="options">
             <label class="opt"><input type="checkbox" id="opt-bgm" checked> 🎵 BGM</label>
@@ -147,6 +159,7 @@
                   <div class="submit-msg" id="submit-msg"></div>
                 </div>
                 <button class="btn btn-primary" id="start">Start</button>
+                <button class="btn fs-only" id="ov-close">Close</button>
               </div>
             </div>
           </div>
@@ -359,22 +372,50 @@
     let rectEl, badgeEl, start = null, selected = [], submitted = false;
 
     const isNarrow = () => gameArea.clientWidth < 600;
+    const isPhone = () => window.innerWidth < 600;
+
+    /* Full-screen mode: on phones the game covers the whole screen like its own window */
+    let fsMode = false;
+    function enterFs() {
+      if (fsMode) return;
+      fsMode = true;
+      gameArea.classList.add("fs");
+      document.documentElement.classList.add("fs-lock");
+      const el = document.documentElement; // hides the browser bars where supported (Android)
+      if (el.requestFullscreen && !document.fullscreenElement) el.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+    }
+    function exitFs() {
+      if (!fsMode) return;
+      fsMode = false;
+      gameArea.classList.remove("fs");
+      document.documentElement.classList.remove("fs-lock");
+      if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      fitBoard();
+    }
+    gameArea.addEventListener("touchmove", (e) => { if (fsMode && e.target.tagName !== "INPUT") e.preventDefault(); }, { passive: false });
 
     // Fit the whole board on screen: limit width so the board's height fits the viewport too.
     function fitBoard() {
       if (!cols) return;
       shell.style.maxWidth = "";
-      const header = 76;
       const above = document.getElementById("hud").offsetHeight + document.getElementById("options").offsetHeight + barEl.offsetHeight + 34;
       const pad = isNarrow() ? 12 : 20;
-      const availH = window.innerHeight - header - above - pad - 8;
-      const availW = gameArea.clientWidth - pad;
+      let availH;
+      if (fsMode) {
+        const cs = getComputedStyle(gameArea);
+        availH = gameArea.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - above - pad + 14;
+      } else {
+        const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        availH = vh - 76 - above - pad - 8;
+      }
+      const availW = gameArea.clientWidth - pad - (fsMode ? 20 : 0);
       const cell = Math.min(availW / cols, availH / rows);
       if (cell * cols < availW - 1) shell.style.maxWidth = Math.floor(cell * cols + pad) + "px";
       const cw = boardEl.clientWidth / cols;
       boardEl.style.setProperty("--fs", Math.max(14, Math.round(cw * (isNarrow() ? 0.48 : 0.42))) + "px");
     }
-    window.addEventListener("resize", fitBoard);
+    // Refit on rotation/resize — but not while the results screen is up (the phone keyboard would shrink it)
+    window.addEventListener("resize", () => { if (!fsMode || playing) fitBoard(); });
 
     function build() {
       // Phones get fewer, bigger drops so they are easy to touch
@@ -405,7 +446,8 @@
       badgeEl.style.display = "none";
     }
 
-    function updateSel(x, y) {
+    function updateSel(px, py) {
+      const { x, y } = clampPt(px, py);
       const r = boardEl.getBoundingClientRect();
       const x0 = Math.min(start.x, x), x1 = Math.max(start.x, x);
       const y0 = Math.min(start.y, y), y1 = Math.max(start.y, y);
@@ -453,16 +495,21 @@
       clearSel();
     }
 
-    boardEl.addEventListener("pointerdown", (e) => {
-      if (!playing) return;
-      e.preventDefault();
-      try { boardEl.setPointerCapture(e.pointerId); } catch (err) {}
-      start = { x: e.clientX, y: e.clientY };
+    // A drag may start (or go) outside the board: points are clamped to the board edge.
+    function clampPt(x, y) {
+      const r = boardEl.getBoundingClientRect();
+      return { x: Math.min(Math.max(x, r.left), r.right), y: Math.min(Math.max(y, r.top), r.bottom) };
+    }
+    document.addEventListener("pointerdown", (e) => {
+      if (!playing || e.button > 0) return;
+      if (e.target.closest("button, input, label, a, select, textarea, #site-header")) return;
+      e.preventDefault(); // no text selection / page drag while playing
+      start = clampPt(e.clientX, e.clientY);
       updateSel(e.clientX, e.clientY);
     });
-    boardEl.addEventListener("pointermove", (e) => { if (start) { e.preventDefault(); updateSel(e.clientX, e.clientY); } });
-    boardEl.addEventListener("pointerup", () => { if (start) { start = null; commit(); } });
-    boardEl.addEventListener("pointercancel", () => { start = null; clearSel(); });
+    window.addEventListener("pointermove", (e) => { if (start) { e.preventDefault(); updateSel(e.clientX, e.clientY); } });
+    window.addEventListener("pointerup", () => { if (start) { start = null; commit(); } });
+    window.addEventListener("pointercancel", () => { if (start) { start = null; clearSel(); } });
     // iOS Safari: make sure dragging on the board never scrolls the page
     boardEl.addEventListener("touchmove", (e) => { if (playing) e.preventDefault(); }, { passive: false });
     boardEl.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -513,8 +560,31 @@
     submitBtn.addEventListener("click", submitScore);
     nickEl.addEventListener("keydown", (e) => { if (e.key === "Enter") submitScore(); });
 
+    function resetOverlay() {
+      document.getElementById("ov-title").textContent = "Rain 10";
+      document.getElementById("ov-text").textContent = "Drag a box so the numbers inside add up to 10.";
+      document.getElementById("ov-score").hidden = true;
+      document.getElementById("submit-box").hidden = true;
+      document.getElementById("start").textContent = "Start";
+      overlay.hidden = false;
+    }
+
+    // ✕ / Close: leave full-screen. Quitting mid-game ends that round without a score.
+    function closeGame() {
+      if (playing) {
+        clearInterval(timer); playing = false; start = null; clearSel(); bgmStop();
+        document.body.classList.remove("playing");
+        resetOverlay();
+      }
+      exitFs();
+      if (submitted) document.getElementById("ranking").scrollIntoView({ block: "center", behavior: "instant" });
+    }
+    document.getElementById("exit-fs").addEventListener("click", closeGame);
+    document.getElementById("ov-close").addEventListener("click", closeGame);
+
     function startGame() {
       clearInterval(timer); bgmStop();
+      if (isPhone()) enterFs();
       build();
       score = 0; left = TIME; playing = true;
       document.body.classList.add("playing");
@@ -523,9 +593,11 @@
       overlay.hidden = true;
       timer = setInterval(tick, 1000);
       bgmStart(); // started from a tap/click, so browsers allow audio
-      // bring the whole game area into view (mainly for phones)
-      const top = gameArea.getBoundingClientRect().top + window.scrollY - 76;
-      if (Math.abs(window.scrollY - top) > 8) window.scrollTo({ top, behavior: "instant" });
+      // on larger screens, bring the whole game area into view
+      if (!fsMode) {
+        const top = gameArea.getBoundingClientRect().top + window.scrollY - 76;
+        if (Math.abs(window.scrollY - top) > 8) window.scrollTo({ top, behavior: "instant" });
+      }
     }
 
     document.getElementById("start").addEventListener("click", startGame);
