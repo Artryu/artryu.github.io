@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | WAVE Lab</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Contact</span>
+        <h1>Contact</h1>
+        <p>연락처 및 협업 문의</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid grid-2" style="gap:48px">
+        <div>
+          <h2>Get in touch</h2>
+          <ul class="contact-list">
+            <li><span>PI</span><span>Prof. Jinwook Lee (이진욱 교수)</span></li>
+            <li><span>Email</span><span><a href="mailto:jinwook213@hnu.kr">jinwook213@hnu.kr</a></span></li>
+            <li><span>Tel.</span><span>+82-42-629-7355</span></li>
+            <li><span>Office</span><span data-lab="office"></span></li>
+            <li><span>Address</span><span><span data-lab="addressKo"></span><br><small style="color:var(--muted)" data-lab="address"></small></span></li>
+          </ul>
+        </div>
+        <div>
+          <iframe class="map" title="Hannam University map" loading="lazy"
+            src="https://maps.google.com/maps?q=Hannam%20University%20Daejeon&z=15&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container">
+        <h2>협업 및 문의 · Collaboration &amp; Inquiries</h2>
+        <div class="grid grid-3" style="margin-top:20px">
+          <div class="card">
+            <h3>공동연구 · 연구 협업</h3>
+            <p>수문·수자원, AI 기반 예측, 영상·음향 강우 관측, 위성 원격탐사 분야의 공동연구와 과제 협업을 환영합니다.</p>
+          </div>
+          <div class="card">
+            <h3>자문 · 기타 문의</h3>
+            <p>기술 자문, 강연, 데이터 및 연구 결과 관련 문의 등 무엇이든 편하게 연락 주세요.</p>
+          </div>
+          <div class="card">
+            <h3>연락 방법</h3>
+            <p>문의 내용을 <a href="mailto:jinwook213@hnu.kr">jinwook213@hnu.kr</a>로 보내주시면 확인 후 회신드리겠습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
