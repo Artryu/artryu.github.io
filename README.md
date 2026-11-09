@@ -18,7 +18,7 @@
 
 사진은 `assets/img/people/` 폴더에 넣고 경로를 `photo: "assets/img/people/파일명.jpg"`처럼 적으면 됩니다.
 
-## 미니게임 랭킹 (Play 탭)
+## 미니게임 랭킹 (Fun Zone 탭)
 
 `play.html`의 Rain 10 랭킹은 Supabase 프로젝트 `wavelab`의 `rain10_scores` 표에 저장됩니다.
 방문자는 기록을 **보기·추가**만 할 수 있고, 수정·삭제는 Supabase 화면(Table Editor)에서만 가능합니다.
