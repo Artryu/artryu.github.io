@@ -20,7 +20,7 @@
 
 ## 미니게임 랭킹 (Fun Zone 탭)
 
-`play.html`의 Rain 10 랭킹은 Supabase 프로젝트 `wavelab`의 `rain10_scores` 표에 저장됩니다.
+`play.html`의 Cloudburst 게임(구 Rain 10, 물방울 170개) 랭킹은 Supabase 프로젝트 `wavelab`의 `rain10_scores` 표에 저장됩니다.
 방문자는 기록을 **보기·추가**만 할 수 있고, 수정·삭제는 Supabase 화면(Table Editor)에서만 가능합니다.
 이상한 기록은 Supabase → Table Editor → `rain10_scores`에서 해당 줄을 지우면 됩니다.
 

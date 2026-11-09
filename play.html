@@ -6,7 +6,7 @@
   <title>Fun Zone | WAVE Lab</title>
   <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="assets/css/style.css?v=202611091200">
+  <link rel="stylesheet" href="assets/css/style.css?v=202611091500">
   <style>
     .game-wrap { max-width: 980px; margin: 0 auto; }
     .game-area { scroll-margin-top: 76px; }
@@ -127,8 +127,8 @@
 
     <section class="game-section">
       <div class="container game-wrap">
-        <h2 class="game-title" style="margin-bottom:.2em">Rain 10 💧</h2>
-        <p class="lead game-lead" style="margin-bottom:18px">Drag to group raindrops whose numbers add up to exactly <b>10</b>. Collect as many as you can in 2 minutes!</p>
+        <h2 class="game-title" style="margin-bottom:.2em">Cloudburst 🌧️</h2>
+        <p class="lead game-lead" style="margin-bottom:18px">Box in raindrops that add up to exactly <b>10</b> and burst them. How many can you clear in 2 minutes?</p>
 
         <div class="game-area" id="game-area">
           <div class="hud" id="hud">
@@ -148,7 +148,7 @@
             <div class="board" id="board"></div>
             <div class="overlay" id="overlay">
               <div>
-                <h2 id="ov-title">Rain 10</h2>
+                <h2 id="ov-title">Cloudburst</h2>
                 <p id="ov-text">Drag a box so the numbers inside add up to 10.</p>
                 <div class="big" id="ov-score" hidden></div>
                 <div id="submit-box" hidden>
@@ -176,8 +176,8 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="assets/js/data.js?v=202611091200"></script>
-  <script src="assets/js/main.js?v=202611091200"></script>
+  <script src="assets/js/data.js?v=202611091500"></script>
+  <script src="assets/js/main.js?v=202611091500"></script>
   <script>
   (function () {
     const TIME = 120; // same as the classic 2-minute round
@@ -418,14 +418,17 @@
     window.addEventListener("resize", () => { if (!fsMode || playing) fitBoard(); });
 
     function build() {
-      // Phones get fewer, bigger drops so they are easy to touch
-      if (isNarrow()) { cols = 7; rows = 11; } else { cols = 15; rows = 9; }
+      // 170 drops like the classic apple game: 17×10, turned upright (10×17) on phones
+      if (isNarrow()) { cols = 10; rows = 17; } else { cols = 17; rows = 10; }
       boardEl.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
       boardEl.innerHTML = "";
-      grid = []; cells = [];
+      cells = [];
+      // Each number is random 1–9, but the board total is always a multiple of 10
+      do {
+        grid = Array.from({ length: cols * rows }, () => 1 + Math.floor(Math.random() * 9));
+      } while (grid.reduce((s, n) => s + n, 0) % 10 !== 0);
       for (let i = 0; i < cols * rows; i++) {
-        const n = 1 + Math.floor(Math.random() * 9);
-        grid.push(n);
+        const n = grid[i];
         const c = document.createElement("div");
         c.className = "cell";
         c.innerHTML = `<div class="drop"><span>${n}</span></div>`;
@@ -561,7 +564,7 @@
     nickEl.addEventListener("keydown", (e) => { if (e.key === "Enter") submitScore(); });
 
     function resetOverlay() {
-      document.getElementById("ov-title").textContent = "Rain 10";
+      document.getElementById("ov-title").textContent = "Cloudburst";
       document.getElementById("ov-text").textContent = "Drag a box so the numbers inside add up to 10.";
       document.getElementById("ov-score").hidden = true;
       document.getElementById("submit-box").hidden = true;
